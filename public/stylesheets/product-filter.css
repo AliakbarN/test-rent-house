@@ -1,0 +1,42 @@
+.filter {
+    position: absolute;
+    z-index: 999;
+    border: 1px sold black;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+li {
+    list-style: none;
+}
+
+.filt-li {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.flt-ul {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
+}
+
+.filt-inp {
+    width: 150px;
+}
+
+.flt-body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    left: -15px;
+}
+
+.flt-footer {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+}

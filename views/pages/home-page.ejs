@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    <title>Rent House</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/album/">
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/home-page.css" rel="stylesheet">
+    <link href="/stylesheets/product-filter.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      footer {
+        min-height: 500px;
+      }
+
+      a {text-decoration: none; color: black;}
+      a:hover {text-decoration: none; color: white;}
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      #map {
+        position: absolute;
+        width: 100%;
+        height: 400px;
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      };
+
+      li {
+        list-style-type: none;
+      }
+
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+
+    
+  </head>
+  <body v-cloak>
+    
+<header>
+  <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">Rent Home</a>
+    <form class="form-inline" id="nav-form">
+      <ul id="nav-list">
+        <input  @input="changeInputData('sText', $event)" :value="inputValue.sText" class="form-control mr-sm-2 nav-li" id="nav-input" type="search" placeholder="Search" aria-label="Search">
+        <!-- <button @click="sendSText" class="btn btn-outline-success nav-li my-2 my-sm-0" type="submit">Search</button> -->
+        <img style="cursor: pointer; margin-left: 10px; margin-bottom: 5px;" src="/stylesheets/icons/search.png"  @click="sendSText" alt="search">
+        <button v-if="!user.isAuth" class="nav-btn-reg" id="log-in"><a href="/user/login">Log In</a> </button>
+        <button v-if="!user.isAuth" class="nav-btn-reg" id="sign-up"><a href="/user/signup">Sign Up</a> </button>
+        <a href="/user/profile"><img style="margin-left: 15px; margin-right: 15px; cursor: pointer;" v-if="user.isAuth" src="/stylesheets/icons/user.png" alt="profile"></a><br>
+        <small v-if="user.isAuth">{{ user.name }}</small>
+      </ul>
+    </form>
+  </nav>
+</header>
+
+<main>
+
+  <section class="py-5 text-center container" id="sec-nav">
+    <div id="flt-price" :style="style.filterPopupPos" @click.stop class="filter mt-5 mb-5" v-if="isShowPriceFilterPopup">
+      <div class="flt-body">
+        <ul class="flt-ul">
+          <li class="filt-li">
+            <div class="form-group">
+              <label for="price-from">От :</label>
+              <input type="number" @input="changeInputData('price from', $event)" :value="inputValue.filter.price.from" class="form-control filt-inp" id="price-from" aria-describedby="emailHelp" placeholder="1234">
+            </div>
+          </li>
+          <li class="filt-li">
+            <div class="form-group">
+              <label for="price-upto">До :</label>
+              <input type="number" @input="changeInputData('price upto', $event)" :value="inputValue.filter.price.upto" class="form-control filt-inp" id="price-upto" aria-describedby="emailHelp" placeholder="1234">
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div id="flt-area" :style="style.filterPopupPos" @click.stop class="filter mt-5 mb-5" v-if="isShowAreaFilterPopup">
+      <div class="flt-body">
+        <ul class="flt-ul">
+          <li class="filt-li">
+            <div class="form-group">
+              <label for="price-from">От :</label>
+              <input type="number" @input="changeInputData('area from', $event)" :value="inputValue.filter.area.from" class="form-control filt-inp" id="price-from" aria-describedby="emailHelp" placeholder="1234">
+            </div>
+          </li>
+          <li class="filt-li">
+            <div class="form-group">
+              <label for="price-upto">До :</label>
+              <input type="number" @input="changeInputData('area upto', $event)" :value="inputValue.filter.area.upto" class="form-control filt-inp" id="price-upto" aria-describedby="emailHelp" placeholder="1234">
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <nav class="navbar navbar-light" id="nav-filter" style="background-color: #e3f2fd;">
+      <ul id="ul-filter">
+        <li @click="openFilterPopup('price', $event)" class="filter-li" id="price-flt"><h5>Price</h5></li>
+        <li @click="openFilterPopup('area',  $event)" class="filter-li" id="area-flt"><h5>Area</h5></li>
+      </ul>
+      <img style="cursor: pointer; margin-right: 10px; margin-bottom: 18px;" src="/stylesheets/icons/search.png"  @click="filterProduct" alt="search">
+    </nav>
+    <div id="ch-pattern">
+      <img src="/stylesheets/icons/row.png" alt="row" v-if="isGrid" @click="isGrid = !isGrid">
+      <img src="/stylesheets/icons/menu.png" alt="grid" @click="isGrid = !isGrid" v-else>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" v-if="isGrid">
+        <div class="col" style="cursor: pointer;" v-for="house in houses" @click="redirectToHouse(house.house_id)">
+          <div class="card">
+            <img :src="house.img" class="bd-placeholder-img card-img-top" width="100%" height="225" role="img" alt="">
+            <div class="card-body">
+              <p class="card-text"><h3>${{ house.price }}/mo</h3></p>
+              <div class="d-flex justify-content-left align-items-center">
+                <p>{{ house.area }} Sq.Ft</p>
+              </div>
+              <div class="d-flex justify-content-center align-items-center">
+                <small class="text-muted">{{ house.address }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-5 mb-5" v-for="house in houses" @click="redirectToHouse(house.house_id)" v-else>
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-10">
+                <div class="row p-2 bg-white border rounded">
+                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" :src="house.img"></div>
+                    <div class="col-md-6 mt-1">
+                        <h5>House</h5>
+                        <div class="d-flex flex-row">
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>{{ house.area }}</span>
+                        </div>
+                        <p class="text-justify text-truncate para mb-0">{{ house.address }}<br><br></p>
+                    </div>
+                    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
+                        <div class="d-flex flex-row align-items-center">
+                            <h4 class="mr-1">${{ house.price }}</h4>
+                        </div>
+                        <div class="d-flex flex-column mt-4"><button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to wishlist</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="text-muted py-5">
+  <d class="map" id="map"></d>
+  <div class="container">
+    <p class="float-end mb-1">
+      <a href="#">Back to top</a>
+    </p>
+  </div>
+</footer>
+  </body>
+  <script src="https://mapgl.2gis.com/api/js/v1"></script>
+  <script type="module" src="/scripts/main.js"></script>
+  <script type="module" src="/scripts/map.js"></script>
+  <script src="/scripts/bootstrap.bundle.min.js"></script>
+</html>

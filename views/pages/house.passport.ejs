@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/house.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        };
+
+        li {
+            display: inline-block;
+            margin-right: 50px;
+        };
+        .ol-overlaycontainer-stopevent {
+            position: absolute;
+            background-color: #cccccc;
+        }
+    </style>
+    <title>House</title>
+</head>
+<body>
+
+    <a href="/"><button :style="btnStyle" class="btn btn-light">Home</button></a>
+    <div class="container" :style="constStyle">
+        <div :style="cardStyle" class="card mb-3  d-flex align-items-center align-content-center">
+            <img class="card-img-top" :src="house.img" alt="Card image cap">
+            <div class="card-body">
+              <h6 class="card-title">{{ house.address }}</h6>
+              <ul>
+                <li><p class="card-text"><h4>${{ house.price }}/mo</h4>  <p class="font-weight-light">Price</p></p></li>
+                <li><p class="card-text"><h4>{{ house.area }} Sq.Ft</h4>  <p class="font-weight-light">Area</p></p></li>
+              </ul>
+            </div>
+          </div>
+          <div :style="mapStyle" id="map" class="map"></div>
+    </div>
+</body>
+<script>
+    const houseId = "<%= houseId %>"
+</script>
+<script src="https://mapgl.2gis.com/api/js/v1"></script>
+<script type="module" src="/scripts/house.js"></script>
+<script type="module" src="/scripts/map.js"></script>
+<script src="/scripts/bootstrap.bundle.min.js"></script>
+</html>

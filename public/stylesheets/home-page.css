@@ -1,0 +1,97 @@
+body{background:#eee}.ratings i{font-size: 16px;color: red}.strike-text{color: red;text-decoration: line-through}.product-image{width: 100%}.dot{height: 7px;width: 7px;margin-left: 6px;margin-right: 6px;margin-top: 3px;background-color: blue;border-radius: 50%;display: inline-block}.spec-1{color: #938787;font-size: 15px}h5{font-weight: 400}.para{font-size: 16px}
+#nav-form {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#nav-list {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 90%;
+    text-align: right;
+    padding: 8px;
+}
+
+#nav-input {
+    width: 300px;
+}
+
+.nav-li {
+    display: inline-block;
+    margin-left: 6px;
+}
+
+.navbar-brand {
+    margin: 3px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.nav-btn-reg {
+    width: 100px;
+    height: 80%;
+    border: none;
+    margin-right: 10px;
+    border-radius: 7px;
+    background-color: #ededed;
+    transition: .3s;
+}
+
+.nav-btn-reg:hover {
+    background-color: #818096;
+    color: white;
+}
+
+#log-in {
+    margin-left: 30px;
+}
+
+#nav-filter {
+    border-radius: 10px;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+    width: fit-content;
+    height: 45px;
+}
+
+#ul-filter {
+    width: 300px;
+    height: 100%;
+    text-align: center;
+}
+
+.filter-li {
+    display: inline-block;
+    position: absolute;
+    cursor: pointer;
+}
+
+#price-flt {
+    left: 0;
+    margin-left: 25%;
+}
+
+#area-flt {
+    right: 0;
+    margin-right: 25%;
+}
+
+#sec-nav {
+    display: flex;
+    justify-content: center;
+}
+
+.card:hover {
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+}
+
+#ch-pattern {
+    position: absolute;
+    right: 25px;
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 40px;
+}
